@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		187A84F62FF6EBAB00C191BF /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 187A84F52FF6EBAB00C191BF /* libsqlite3.tbd */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		1866CD372FF6E998007E70EE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		1866CD262FF6E996007E70EE /* PokopiaApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PokopiaApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1866CD362FF6E998007E70EE /* PokopiaAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokopiaAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1866CD402FF6E998007E70EE /* PokopiaAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokopiaAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		187A84F52FF6EBAB00C191BF /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				187A84F62FF6EBAB00C191BF /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +84,7 @@
 				1866CD282FF6E996007E70EE /* PokopiaApp */,
 				1866CD392FF6E998007E70EE /* PokopiaAppTests */,
 				1866CD432FF6E998007E70EE /* PokopiaAppUITests */,
+				187A84F42FF6EBAA00C191BF /* Frameworks */,
 				1866CD272FF6E996007E70EE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +97,14 @@
 				1866CD402FF6E998007E70EE /* PokopiaAppUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		187A84F42FF6EBAA00C191BF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				187A84F52FF6EBAB00C191BF /* libsqlite3.tbd */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -412,6 +427,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jamielai.PokopiaApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "PokopiaApp/Pokopia-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -441,6 +457,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = jamielai.PokopiaApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
+				"SWIFT_OBJC_BRIDGING_HEADER[arch=*]" = "PokopiaApp/Pokopia-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

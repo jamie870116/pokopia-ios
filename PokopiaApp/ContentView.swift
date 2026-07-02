@@ -6,19 +6,24 @@
 //
 
 import SwiftUI
-
+//import Foundation
+//
+//func testSQLite() {
+//    var db: OpaquePointer?
+//    if sqlite3_open(":memory:", &db) == SQLITE_OK {
+//        print("SQLite connected successfully")
+//    } else {
+//        print("SQLite connection failed")
+//    }
+//    sqlite3_close(db)
+//}
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        HomeView()
     }
 }
 
 #Preview {
     ContentView()
 }
+
