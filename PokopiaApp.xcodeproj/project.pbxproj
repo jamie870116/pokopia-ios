@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		187A84F62FF6EBAB00C191BF /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 187A84F52FF6EBAB00C191BF /* libsqlite3.tbd */; };
+		187A895C2FF97FDC00C191BF /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 187A895B2FF97FDC00C191BF /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +33,7 @@
 		1866CD362FF6E998007E70EE /* PokopiaAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokopiaAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1866CD402FF6E998007E70EE /* PokopiaAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokopiaAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		187A84F52FF6EBAB00C191BF /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		187A895B2FF97FDC00C191BF /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -81,6 +83,7 @@
 		1866CD1D2FF6E996007E70EE = {
 			isa = PBXGroup;
 			children = (
+				187A895B2FF97FDC00C191BF /* README.md */,
 				1866CD282FF6E996007E70EE /* PokopiaApp */,
 				1866CD392FF6E998007E70EE /* PokopiaAppTests */,
 				1866CD432FF6E998007E70EE /* PokopiaAppUITests */,
@@ -227,6 +230,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				187A895C2FF97FDC00C191BF /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
