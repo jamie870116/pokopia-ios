@@ -90,11 +90,11 @@ class PokemonDatabase {
         if count == 0 {
             // TODO: 之後補上英文名跟圖檔名，這裡先放預設值
             let maps: [(id: Int, nameChinese: String, nameEnglish: String, imageFile: String)] = [
-                (1, "空空鎮", "Palette Town", ""),
-                (2, "乾巴巴荒野", "Withered Wastelands", ""),
-                (3, "陰沉沉海濱", "Bleak Beach", ""),
-                (4, "凸隆隆山地", "Rocky Ridges", ""),
-                (5, "亮晶晶空島", "Sparkling Skyland", "")
+                (1, "空空鎮", "Palette Town", "palette-town"),
+                (2, "乾巴巴荒野", "Withered Wastelands", "withered-wasteland"),
+                (3, "陰沉沉海濱", "Bleak Beach", "bleak-beach"),
+                (4, "凸隆隆山地", "Rocky Ridges", "rocky-ridges-surface"),
+                (5, "亮晶晶空島", "Sparkling Skyland", "sparkling-skylands")
             ]
 
             for map in maps {

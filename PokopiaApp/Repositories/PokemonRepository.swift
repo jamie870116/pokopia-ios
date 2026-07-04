@@ -257,6 +257,129 @@ class PokemonRepository {
     func fetchAllEnvironments() -> [String] {
         return fetchDistinctItemsFromCommaColumn("environment")
     }
+    
+    // 讀取所有地圖，並附上各自的寶可夢數量
+    func fetchAllMaps() -> [GameMap] {
+        let sql = "SELECT id, nameChinese, nameEnglish, imageFile FROM maps ORDER BY id ASC;"
+        var statement: OpaquePointer?
+        var results: [GameMap] = []
+
+        guard sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK else {
+            return []
+        }
+
+        while sqlite3_step(statement) == SQLITE_ROW {
+            let id = Int(sqlite3_column_int(statement, 0))
+            let nameChinese = columnText(statement, 1)
+            let nameEnglish = columnText(statement, 2)
+            let imageFile = columnText(statement, 3)
+            results.append(GameMap(id: id, nameChinese: nameChinese, nameEnglish: nameEnglish, imageFile: imageFile))
+        }
+        sqlite3_finalize(statement)
+        return results
+    }
+
+    // 計算某張地圖（或「未分配」，mapId 傳 nil）裡有幾隻 Pokémon
+    func countPokemons(mapId: Int?) -> Int {
+        let sql: String
+        if mapId != nil {
+            sql = "SELECT COUNT(*) FROM pokemons WHERE mapId = ?;"
+        } else {
+            sql = "SELECT COUNT(*) FROM pokemons WHERE mapId IS NULL;"
+        }
+
+        var statement: OpaquePointer?
+        var count = 0
+
+        guard sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK else {
+            return 0
+        }
+
+        if let mapId = mapId {
+            sqlite3_bind_int(statement, 1, Int32(mapId))
+        }
+
+        if sqlite3_step(statement) == SQLITE_ROW {
+            count = Int(sqlite3_column_int(statement, 0))
+        }
+        sqlite3_finalize(statement)
+        return count
+    }
+
+    // 讀取某張地圖（或「未分配」）裡的所有 Pokémon，可搭配搜尋文字篩選
+    func fetchPokemons(mapId: Int?, searchText: String = "") -> [Pokemon] {
+        var sql: String
+        var params: [String] = []
+
+        if let mapId = mapId {
+            sql = "SELECT * FROM pokemons WHERE mapId = ?"
+            params.append(String(mapId))
+        } else {
+            sql = "SELECT * FROM pokemons WHERE mapId IS NULL"
+        }
+
+        if !searchText.isEmpty {
+            sql += " AND (nameChinese LIKE ? OR nameEnglish LIKE ? OR CAST(id AS TEXT) LIKE ?)"
+            let pattern = "%\(searchText)%"
+            params.append(contentsOf: [pattern, pattern, pattern])
+        }
+
+        sql += " ORDER BY id ASC;"
+
+        var statement: OpaquePointer?
+        var results: [Pokemon] = []
+
+        guard sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK else {
+            return []
+        }
+
+        var bindIndex: Int32 = 1
+        if let mapId = mapId {
+            sqlite3_bind_int(statement, bindIndex, Int32(mapId))
+            bindIndex += 1
+            // 搜尋參數要跳過剛剛用掉的 mapId 那個 index，從剩下的 params 裡取字串部分
+            for param in params.dropFirst() {
+                bindText(statement, bindIndex, param)
+                bindIndex += 1
+            }
+        } else {
+            for param in params {
+                bindText(statement, bindIndex, param)
+                bindIndex += 1
+            }
+        }
+
+        while sqlite3_step(statement) == SQLITE_ROW {
+            results.append(mapRowToPokemon(statement))
+        }
+        sqlite3_finalize(statement)
+        return results
+    }
+    
+    // 批次把多隻 Pokémon 分配到某張地圖（mapId 傳 nil 代表移回「未分配」）
+    func assignPokemons(ids: [Int], toMapId mapId: Int?) {
+        let sql = "UPDATE pokemons SET mapId = ? WHERE id = ?;"
+
+        for id in ids {
+            var statement: OpaquePointer?
+            guard sqlite3_prepare_v2(db, sql, -1, &statement, nil) == SQLITE_OK else {
+                print("Assign prepare 失敗: id \(id)")
+                continue
+            }
+
+            if let mapId = mapId {
+                sqlite3_bind_int(statement, 1, Int32(mapId))
+            } else {
+                sqlite3_bind_null(statement, 1)
+            }
+            sqlite3_bind_int(statement, 2, Int32(id))
+
+            if sqlite3_step(statement) != SQLITE_DONE {
+                print("Assign 失敗: id \(id)")
+            }
+            sqlite3_finalize(statement)
+        }
+    }
 
     // 共用邏輯：讀取某個逗號分隔欄位的全部資料，拆開、去重、排序
     private func fetchDistinctItemsFromCommaColumn(_ column: String) -> [String] {
